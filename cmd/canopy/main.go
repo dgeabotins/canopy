@@ -34,8 +34,9 @@ func main() {
 
 	log.Infof("Configuration loaded (data_dir=%s, chain_id=%s)", cfg.DataDir, cfg.ChainID)
 
-	// Set up graceful shutdown on OS interrupt signals
-	quit := make(chan os.Signal, 1)
+	// Set up graceful shutdown on OS interrupt signals.
+	// Using a buffer of 2 to avoid missing a second signal if teardown is slow.
+	quit := make(chan os.Signal, 2)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 
 	// TODO: initialize and start the node components:
