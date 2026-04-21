@@ -53,6 +53,8 @@ func main() {
 	log.Infof("Received signal %s — shutting down gracefully...", sig)
 
 	// TODO: perform ordered teardown of node components here
+	// NOTE(personal): teardown order should be: RPC -> Mempool -> Consensus -> P2P
+	// to avoid accepting new work while draining in-flight state.
 
 	fmt.Println("Goodbye.")
 }
