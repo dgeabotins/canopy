@@ -55,6 +55,10 @@ func main() {
 	// TODO: perform ordered teardown of node components here
 	// NOTE(personal): teardown order should be: RPC -> Mempool -> Consensus -> P2P
 	// to avoid accepting new work while draining in-flight state.
+	//
+	// NOTE(personal): also consider adding a configurable shutdown timeout (e.g. 30s)
+	// so a stuck teardown step doesn't hang the process indefinitely. Could use
+	// context.WithTimeout passed down to each component's Stop() method.
 
 	fmt.Println("Goodbye.")
 }
