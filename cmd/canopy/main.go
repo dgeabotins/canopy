@@ -59,6 +59,10 @@ func main() {
 	// NOTE(personal): also consider adding a configurable shutdown timeout (e.g. 30s)
 	// so a stuck teardown step doesn't hang the process indefinitely. Could use
 	// context.WithTimeout passed down to each component's Stop() method.
+	//
+	// NOTE(personal): 30s default feels generous; in practice most components should
+	// drain in well under 5s. May want to make the per-component timeout configurable
+	// separately from the global one, so a slow RPC drain doesn't eat the whole budget.
 
 	fmt.Println("Goodbye.")
 }
